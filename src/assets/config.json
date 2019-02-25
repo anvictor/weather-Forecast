@@ -1,0 +1,4 @@
+{
+  "liveSearchUrl": "http://104.248.129.33:8089/getcities?str=",
+  "weatherForecastUrl": "ttp://api.openweathermap.org/data/2.5/weather?q="
+}

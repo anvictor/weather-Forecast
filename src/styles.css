@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+  /*border: solid 1px red;*/
+}
+body{
+  margin: auto;
+  font-family: sans-serif;
+  background-image: url("http://webhelp.kiev.ua/weather-Forecast/assets/img/bgrnd.gif");
+  color: #e4c5b9;
+}
+
+h1{
+  margin: 5px auto;
+}
+
+
+html, body { height: 100%; }
+body > app-root{
+  align-self: center;
+}

@@ -1,0 +1,61 @@
+<p style="display: block; font-size: 20px;">Ищем город: {{cityName}}</p>
+
+<input id="ngModel" placeholder="Латинскими буквами" (keyup)="searchCity(cityName)" (focus)="clear()" (change)="submit(cityName)" [(ngModel)]="cityName" />
+<button mat-icon-button color="red" mat-raised-button (click)="submit(cityName)">
+    <mat-icon>
+      search
+    </mat-icon>
+
+</button>
+<ul *ngIf="!found" id="liveSearch">
+  <div *ngFor="let City of cityes; let i = index">
+    <li *ngIf="i < 100">
+      <button (click)="setCity(City.Name, City.Country)" class="foundCity">
+        <span>{{City.Name}},{{City.Country}}</span>
+      </button>
+    </li>
+  </div>
+</ul>
+
+<div class="line">
+  <div *ngIf="done" class="left">
+    <h1>В городе: {{cityName}}</h1>
+    <div>Страна: {{answerCountry}}</div>
+    <div>Понаехали: {{answerPopulation}} человек</div>
+    <div>Температура: {{answerTemp}} °C</div>
+    <div>Давление: {{answerPressure}} гПа</div>
+    <div>Скорость света: 299 792 458 м/с</div>
+  </div>
+  <div class="wind" *ngIf="done">
+   <span class="windText"> Ветер: {{windSpeed| number: '.0-0'}} м/с <br> туда: {{windDeg| number: '.0-0'}}°</span>
+    <img id="arrowShadow" src="weather-Forecast/assets/img/arrow_shadow.png" title="{{windDeg}}°">
+    <img id="arrow" src= "weather-Forecast/assets/img/arrow.png" title="{{windDeg}}°">
+    <img id="lens" src= "weather-Forecast/assets/img/lens.png" title="{{windDeg}}°">
+  </div>
+</div>
+<div *ngIf="done" class="weekForecast">
+  <div [ngStyle]="{'background-color': paint_day_night(dateTimeFormat(i.dt)[4])}" ngClass="day_tab" *ngFor = "let i of filteredArray">
+    <div class="wwt_year">{{dateTimeFormat(i.dt)[3]}}</div>
+    <div class="dd_mm">
+      <div class="wwt_date">{{dateTimeFormat(i.dt)[1]}}</div>
+      <div class="wwt_month">{{dateTimeFormat(i.dt)[2]}}</div>
+    </div>
+    <div [ngStyle]="{'color': paint_weekDay(dateTimeFormat(i.dt)[5])}" class="wwt_day">{{dateTimeFormat(i.dt)[0]}}</div>
+    <div class="wwt_time">{{dateTimeFormat(i.dt)[4]}}</div>
+          <div class="pic">
+            <img title="{{i.weather[0].main}}" src="weather-Forecast/assets/img/{{i.weather[0].icon}}.png">
+          </div>
+      <div class="tmp">
+          <span class="tmpTitle">t</span>
+          <span class="t">{{i.main.temp| number: '.0-0'}}</span>
+        <span class="tmpTitle">°C</span>
+      </div>
+  </div>
+</div>
+<div *ngFor = "let i of direction()">
+  функция направления ветра, вызывается после появления стрелки
+</div>
+<div *ngIf="!done" class="weekForecast">
+  нет совпадений!
+</div>
+
